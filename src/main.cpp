@@ -8,7 +8,7 @@
 // for convenience
 using nlohmann::json;
 using std::string;
-using std::vector;
+using std::vector;	
 
 // Checks if the SocketIO event has JSON data.
 // If there is data the JSON object in string format will be returned,
@@ -39,7 +39,7 @@ int main() {
 
   // Read map data
   Map map;
-  if (!read_map_data("../data/map_data.txt", map)) {
+  if (!read_map_data("data/map_data.txt", map)) {
     std::cout << "Error: Could not open map file" << std::endl;
     return -1;
   }
@@ -100,6 +100,7 @@ int main() {
           std::istream_iterator<float>(),
           std::back_inserter(y_sense));
 
+		  //std::cout << "obs size " << x_sense.size() << std::endl;
           for (int i = 0; i < x_sense.size(); ++i) {
             LandmarkObs obs;
             obs.x = x_sense[i];
@@ -163,7 +164,7 @@ int main() {
   });
 
   int port = 4567;
-  if (h.listen(port)) {
+  if (h.listen("127.0.0.1", port)) {
     std::cout << "Listening to port " << port << std::endl;
   } else {
     std::cerr << "Failed to listen to port" << std::endl;
